@@ -1,0 +1,194 @@
+---
+title: "Homework 2"
+author: "Josh"
+date: "2/19/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+install.packages("tidyverse")
+
+```
+
+
+1) Enter and run USArrests. What type of information is shown in the data table USArrests?  (Three or four sentences)
+
+The data base for USArrests has arrets for murders, rape, and assaults, as well as urban population percentage. It contains all numeric data divided up by states. It also gives each region for the crimes commited. The arrests are per 100,000 residents.
+
+2) Use and show R coding that features a map function to show maximum values for all variables of the USArerests data frame.  Which State has the largest number of Assaults according to the USAressts data frame ?
+
+```{r}
+
+map_dbl(USArrests, max)
+
+```
+
+
+
+3) Install the nycflights13 package: install.packages("nycflights13") , call the following library:  library(nycflights13), and then enter flights (this will produce the flights data table)
+
+```{r}
+
+install.packages("nycflights13")
+library(nycflights13)
+
+flights
+
+```
+
+
+
+
+4) Use and show R code that will indicate how many rows and how many columns the flights data has.  Review and revisit your notes from STAT 412/612.  Describe a tibble (two or three sentences). Now use and show R code that verifies that flights is a tibble
+
+
+```{r}
+
+as.matrix(flights)
+
+nrow(flights)
+ncol(flights)
+
+```
+
+A tibble is a new way to oragnize your data frame. It drops some older features that are arguably outdated and puts the dataframe into a sometimes more usuable format. It does not remove any of your data however. You can run the R code is_tibble to test if your data frame is a tibble or not. 
+
+```{r}
+
+is_tibble(flights)
+
+```
+
+
+
+
+5) Now Use and show R code (featuring a map function) that will output the type of each column of the flights tibble.
+
+By usuing the as_tibble function you can look to see if your columns are a factor or character output. You can also use is.factor and is.numeric. You can also use the sapply function at the bottom.
+
+```{r}
+
+print(as_tibble(flights))
+
+factor <- sapply(flights, is.factor)
+which(factor)
+flights[, factor]
+
+
+```
+```{r}
+
+sapply(flights, class)
+
+```
+
+
+
+
+6)  Use and show R coding that features usage of a map function to find the slope and the intercept of models for the different levels of the Species variable of the iris data frame.  For each model, Sepal.Width predicts Sepal.Length.
+
+
+
+```{r}
+
+install.packages("iris")
+
+summary(iris)
+
+Set <- iris[iris$Species=="setosa", 1:2]
+Vers <- iris[iris$Species=="versicolor", 1:2]
+Virg <- iris[iris$Species=="virginica", 1:2]
+
+predicta <- lm(Sepal.Length ~ Sepal.Width, data = Set)
+  
+predictb <- lm(Sepal.Length ~ Sepal.Width, data = Vers)
+  
+predictc <- lm(Sepal.Length ~ Sepal.Width, data = Virg)
+
+
+predicta
+predictb
+predictc
+
+
+```
+
+
+
+
+7)
+
+```{r}
+
+
+V <- list(12, 22, 27, 31.5, NA, 39, "east")
+
+V
+
+```
+
+
+```{r}
+install.packages("dplyr")
+library(dplyr)
+
+```
+
+
+
+For the given list above;
+
+7a) Use and show R code to find the length of the list
+
+```{r}
+
+length(V)
+
+```
+
+
+7b) Use and show R code that will extract the missing value
+
+```{r}
+
+is.na(V)
+
+```
+
+
+
+7c) Use and show R code that will extract the third object
+
+```{r}
+
+nth(V, 3, order_by = NULL, default = default_missing(x))
+
+```
+
+7d) Use and show R code that will extract the character string and the minimum number.
+
+```{r}
+
+min( unlist( list(12, 22, 27, 31.5, 39, "east")))
+
+```
+
+
+
+7e) Use one line of code to show that the seventh object is a character object.
+
+```{r}
+
+typeof(seven <- nth(V, 7, order_by = NULL, default = default_missing(x)))
+
+
+```
+
+
